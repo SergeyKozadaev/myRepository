@@ -21,6 +21,8 @@ return array(
 
     'logout' => 'user/logout',
 
+    'downloadXML' => 'task/downloadXML',
+
     '' => 'site/index',
 
 

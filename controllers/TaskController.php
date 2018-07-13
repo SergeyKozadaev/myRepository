@@ -126,4 +126,49 @@ class TaskController {
         require_once (ROOT . '/views/task/newView.php');
         return true;
     }
+
+    public function actiondownloadXML() {
+
+        $xmlFile = TaskModel::getAllTasksListXML();
+
+        //readfile(ROOT . $xmlFile);
+
+
+        if (file_exists($xmlFile)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($xmlFile).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($xmlFile));
+            readfile($xmlFile);
+            exit;
+        } else {
+            echo 'cant find a file';
+        }
+
+        //echo $xmlFile;
+
+        //var_dump($result);
+/*
+        foreach ($result as $array) {
+            echo ' ' . $array['wId'];
+            echo ' ' . $array['wLogin'];
+            echo ' ' . $array['tName'];
+            echo ' ' . $array['tContactPhone'];
+            echo ' ' . $array['tDescription'];
+            echo ' ' . $array['tPhoto'];
+            echo '<br>';
+        }
+*/
+
+
+
+
+
+
+
+        //header("Location: /list/1");
+    }
 }

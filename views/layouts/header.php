@@ -32,6 +32,9 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/list/1">Список заявок</a></li>
                             <li><a href="/new">Новая заявка</a></li>
+                            <?php if($_SESSION["adminFlag"]) : ?>
+                                <li><a href="/downloadXML">Скачать БД в XML</a></li>
+                            <?php endif ; ?>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -41,4 +44,7 @@
 
                     <?php endif; ?>
             </div>
+
+
+
         </nav>
