@@ -38,13 +38,10 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="" class="disabled"><span class="glyphicon glyphicon-user"></span> Вы вошли как: <?php echo $_SESSION["userName"] ?> </a></li>
+                            <li><a href="" class="disabled"><span class="glyphicon glyphicon-user"></span> Вы вошли как: <?php echo $_SESSION["userName"]?> </a></li>
                             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Выйти </a></li>
                         </ul>
 
                     <?php endif; ?>
             </div>
-
-
-
         </nav>

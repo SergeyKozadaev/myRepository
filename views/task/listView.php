@@ -1,16 +1,16 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
 <?php if(empty($_SESSION["userId"])) : ?>
+    <?php header("Location: /") ; ?>
+<?php endif ; ?>
 
-    <?php header("Location: /");   ?>
 
-<?php endif ;?>
+
 
 
 
 <div class="container-fluid">
     <table class="table table-hover">
-
         <thead>
         <div class="page-header">
             <h2>Список заявок:</h2>
@@ -26,9 +26,8 @@
         </thead>
 
         <tbody>
-
         <?php foreach($taskList as $array) :?>
-            <?php if(!empty($_SESSION['lastTaskId']) and $array['tId'] == $_SESSION['lastTaskId']):?>
+            <?php if(!empty($_SESSION['lastTaskId']) and $array['tId'] == $_SESSION['lastTaskId']) : ?>
                 <tr class="success">
             <?php else : ?>
                 <tr>
@@ -40,12 +39,10 @@
             <td class=\"col-lg-3\"> <?php echo $array['tDescription'];?></td>
             <td class=\"col-lg-3\"> <?php echo $array['tContactPhone'];?></td>
             <td>
-                <p class="links" > <a href="/show/<?php echo $array['tId'];?>"> Открыть</a> </p>
+                <p class="links" > <a href="/show/<?php echo $array['tId'];?>">Открыть</a> </p>
             </td>
         </tr>
-
-        <?php endforeach; ?>
-
+        <?php endforeach ; ?>
         </tbody>
     </table>
 </div>

@@ -1,11 +1,11 @@
 <?php
 
-class SiteController {
-
-    public function actionIndex() {
-
+//контроллер страницы-приветсвия сайта, просто подключает View
+class SiteController
+{
+    public function actionIndex()
+    {
         require_once(ROOT . '/views/site/indexView.php');
-
         return true;
     }
 }

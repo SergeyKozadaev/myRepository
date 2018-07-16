@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<table>
+  <row>
+    <column name="wId">11</column>
+    <column name="wLogin">Sigismund</column>
+    <column name="tId">23</column>
+    <column name="tName">&#x435;&#x449;&#x435; &#x43E;&#x434;&#x43D;&#x430; &#x437;&#x430;&#x44F;&#x432;&#x43A;&#x430;</column>
+    <column name="tContactPhone">84742888888</column>
+    <column name="tDescription">&#x447;&#x442;&#x43E;-&#x442;&#x43E; &#x43D;&#x435; &#x440;&#x430;&#x431;&#x43E;&#x442;&#x430;&#x435;&#x442; &#x438; &#x44D;&#x442;&#x43E; &#x447;&#x442;&#x43E;-&#x442;&#x43E; &#x43D;&#x430;&#x434;&#x43E; &#x43F;&#x43E;&#x447;&#x438;&#x43D;&#x438;&#x442;&#x44C;</column>
+    <column name="tPhoto">/lib/taskPhotos/b5fb50d43d60cdafc8c41ae8f9e785f1</column>
+  </row>
+  <row>
+    <column name="wId">10</column>
+    <column name="wLogin">sergey</column>
+    <column name="tId">22</column>
+    <column name="tName">&#x435;&#x449;&#x435; &#x43E;&#x434;&#x43D;&#x430; &#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430;</column>
+    <column name="tContactPhone">+7915555555</column>
+    <column name="tDescription">&#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x44F;&#x435;&#x43C; &#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x443; &#x444;&#x43E;&#x442;&#x43E; &#x441; &#x43F;&#x435;&#x440;&#x435;&#x43F;&#x438;&#x441;&#x430;&#x43D;&#x43D;&#x43E;&#x439; &#x444;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x435;&#x439;</column>
+    <column name="tPhoto">/lib/taskPhotos/cd354fa959097725a7a83f9c5b32b78e</column>
+  </row>
+  <row>
+    <column name="wId">11</column>
+    <column name="wLogin">Sigismund</column>
+    <column name="tId">21</column>
+    <column name="tName">&#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430; 3</column>
+    <column name="tContactPhone">+7915555555</column>
+    <column name="tDescription">&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;&#x439;</column>
+    <column name="tPhoto"/>
+  </row>
+  <row>
+    <column name="wId">10</column>
+    <column name="wLogin">sergey</column>
+    <column name="tId">20</column>
+    <column name="tName">&#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430; 2</column>
+    <column name="tContactPhone">+7915555555</column>
+    <column name="tDescription">&#x435;&#x449;&#x435; &#x43E;&#x434;&#x43D;&#x430; &#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430; &#x432;&#x44B;&#x434;&#x435;&#x43B;&#x435;&#x43D;&#x438;&#x44F; &#x43F;&#x43E;&#x441;&#x43B;&#x435;&#x434;&#x43D;&#x435;&#x439; &#x434;&#x43E;&#x431;&#x430;&#x432;&#x43B;&#x435;&#x43D;&#x43D;&#x43E;&#x439; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x438;</column>
+    <column name="tPhoto">/lib/taskPhotos/phone.png</column>
+  </row>
+  <row>
+    <column name="wId">10</column>
+    <column name="wLogin">sergey</column>
+    <column name="tId">19</column>
+    <column name="tName">&#x41F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430;</column>
+    <column name="tContactPhone">8919123456</column>
+    <column name="tDescription">&#x41F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430; &#x43F;&#x43E;&#x434;&#x441;&#x432;&#x435;&#x447;&#x438;&#x432;&#x430;&#x43D;&#x438;&#x44F; &#x43F;&#x43E;&#x441;&#x43B;&#x435;&#x434;&#x43D;&#x435;&#x433;&#x43E; &#x434;&#x43E;&#x431;&#x430;&#x432;&#x43B;&#x435;&#x43D;&#x43D;&#x43E;&#x433;&#x43E; &#x437;&#x430;&#x434;&#x430;&#x43D;&#x438;&#x44F; (&#x437;&#x430;&#x44F;&#x432;&#x43A;&#x438;)</column>
+    <column name="tPhoto"/>
+  </row>
+  <row>
+    <column name="wId">11</column>
+    <column name="wLogin">Sigismund</column>
+    <column name="tId">18</column>
+    <column name="tName">&#x424;&#x43E;&#x442;&#x43E;&#x433;&#x440;&#x430;&#x444;&#x438;&#x44F;</column>
+    <column name="tContactPhone">+7915555555</column>
+    <column name="tDescription">2222222222222222222222222</column>
+    <column name="tPhoto">/lib/taskPhotos/perf2.jpg</column>
+  </row>
+  <row>
+    <column name="wId">10</column>
+    <column name="wLogin">sergey</column>
+    <column name="tId">16</column>
+    <column name="tName">&#x424;&#x43E;&#x442;&#x43E;&#x433;&#x440;&#x430;&#x444;&#x438;&#x44F;</column>
+    <column name="tContactPhone">+7915555555</column>
+    <column name="tDescription">&#x43F;&#x440;&#x43E;&#x432;&#x435;&#x440;&#x43A;&#x430; &#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x438; &#x444;&#x43E;&#x442;&#x43E;&#x433;&#x440;&#x430;&#x444;&#x438;&#x439;</column>
+    <column name="tPhoto">/lib/taskPhotos/perf.jpg</column>
+  </row>
+  <row>
+    <column name="wId">11</column>
+    <column name="wLogin">Sigismund</column>
+    <column name="tId">5</column>
+    <column name="tName">anotherTask</column>
+    <column name="tContactPhone">89158508585</column>
+    <column name="tDescription">Description or &#x41E;&#x43F;&#x438;&#x441;&#x430;&#x43D;&#x438;&#x435; 12345</column>
+    <column name="tPhoto"/>
+  </row>
+  <row>
+    <column name="wId">1</column>
+    <column name="wLogin">Admin</column>
+    <column name="tId">4</column>
+    <column name="tName">Coffee machine is not working</column>
+    <column name="tContactPhone">+7091111111</column>
+    <column name="tDescription">I cant drink a cup of morning coffee</column>
+    <column name="tPhoto"/>
+  </row>
+  <row>
+    <column name="wId">1</column>
+    <column name="wLogin">Admin</column>
+    <column name="tId">3</column>
+    <column name="tName">System Testing in progress</column>
+    <column name="tContactPhone">+7999999999</column>
+    <column name="tDescription">Just for Admin, don't forget to do smthg!</column>
+    <column name="tPhoto">/lib/taskPhotos/perf.jpg</column>
+  </row>
+  <row>
+    <column name="wId">10</column>
+    <column name="wLogin">sergey</column>
+    <column name="tId">2</column>
+    <column name="tName">Help me!</column>
+    <column name="tContactPhone">+7123456789</column>
+    <column name="tDescription">i don't know how to start the computer</column>
+    <column name="tPhoto"/>
+  </row>
+</table>

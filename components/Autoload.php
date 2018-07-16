@@ -1,8 +1,8 @@
 <?php
 
     //Автоподгрузка классов из папок components и models
-    spl_autoload_register(function ($className) {
-
+    spl_autoload_register(function ($className)
+    {
         $arrayPaths = array(
             '/components/',
             '/models/'
@@ -14,5 +14,4 @@
                 include_once $path;
             }
         }
-
     });

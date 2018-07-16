@@ -1,6 +1,5 @@
 
 <footer id = "footer">
-
     <nav class="modal-footer navbar-fixed-bottom">
         <div class="container">
             <div class="row">
@@ -9,11 +8,8 @@
             </div>
         </div>
     </nav>
-
-
-
 </footer>
 
-
 </body>
+
 </html>

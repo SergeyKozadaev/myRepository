@@ -1,18 +1,19 @@
 <?php
 
 //создание и настройка параметров подключения к Базе данных через PDO
-class Db {
+class Db
+{
+    private static $dbHost = 'localhost';
+    private static $dbName = 'helpdesk';
+    private static $dbUser = 'root';
+    private static $dbPassword = 'l2jdb2l';
 
-    public static function pdoConnection() {
-
-        $configPath = ROOT . '/config/dbConfig.php';
-        $config = include ($configPath);
-
-        $pdo = new PDO("mysql:host={$config['dbHost']};dbname={$config['dbName']}", $config['dbUser'], $config['dbPassword']);
+    public static function pdoConnection()
+    {
+        $dsn = "mysql:host=".self::$dbHost.";dbname=".self::$dbName;
+        $pdo = new PDO($dsn, self::$dbUser, self::$dbPassword);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->exec("set names utf8");
-
         return $pdo;
-
     }
 }

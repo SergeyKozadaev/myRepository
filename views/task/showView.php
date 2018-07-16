@@ -1,13 +1,10 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
 <?php if(empty($_SESSION)) : ?>
-
-    <?php header("Location: /");   ?>
-
+    <?php header("Location: /");?>
 <?php endif ; ?>
 
-
-<?php if($_SESSION["adminFlag"] || $taskItem['wId'] == $_SESSION['userId']) :?>
+<?php if($_SESSION["adminFlag"] || $taskItem['wId'] == $_SESSION['userId']) : ?>
     <div class="container">
         <form method="" action="">
             <h2>Просмотр заявки</h2>
@@ -51,7 +48,7 @@
     </div>
 
 <?php else : ?>
-    <?php header("Location: /list/1");   ?>
+    <?php header("Location: /list/1");?>
 <?php endif ; ?>
 
 

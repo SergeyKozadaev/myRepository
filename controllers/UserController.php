@@ -1,8 +1,22 @@
 <?php
-class UserController {
-
-    public function actionRegister() {
-
+//контроллер отвечает за регистрацию, авторизацию и выход пользователя из системы
+class UserController
+{
+    //авторизуем пользователя через $_SESSION
+    public function setUserAuthorisation($userId, $userName, $adminFlag)
+    {
+        $_SESSION['userId'] = $userId;
+        $_SESSION['userName'] = $userName;
+        $_SESSION['adminFlag'] = $adminFlag;
+    }
+    //очищаем $_SESSION, выход юзера из системы
+    public function unsetUserAuthorisation()
+    {
+        session_unset();
+    }
+    //регистрация пользователя
+    public function actionRegister()
+    {
         $login = '';
         $email = '';
         $password = '';
@@ -17,11 +31,11 @@ class UserController {
         }
 
         if(isset($_POST['submit'])){
-            $login = UserModel::testInput($_POST['login']);
-            $email = UserModel::testInput($_POST['email']);
-            $password = UserModel::testInput($_POST['password']);
-            $passwordRepeat = UserModel::testInput($_POST['passwordRepeat']);
-
+            $login = Input::testInput($_POST['login']);
+            $email = Input::testInput($_POST['email']);
+            $password = Input::testInput($_POST['password']);
+            $passwordRepeat = Input::testInput($_POST['passwordRepeat']);
+            //массив ошибок
             $errors = false;
 
             if(!UserModel::checkLoginLength($login)) {
@@ -56,25 +70,24 @@ class UserController {
         }
 
         require_once (ROOT . '/views/user/registerView.php');
-
         return true;
     }
-
-    public function actionLogin() {
-
+    //авторизация пользователя
+    public function actionLogin()
+    {
         $email = '';
         $password = '';
         $result = false;
 
-        if(isset($_POST['reset'])){
+        if(isset($_POST['reset'])) {
             $email = '';
             $password = '';
         }
 
-        if(isset($_POST['submit'])){
-            $email = UserModel::testInput($_POST['email']);
-            $password = UserModel::testInput($_POST['password']);
-
+        if(isset($_POST['submit'])) {
+            $email = Input::testInput($_POST['email']);
+            $password = Input::testInput($_POST['password']);
+            //массив с ошибками ввода
             $errors = false;
 
             if(!UserModel::checkEmail($email)) {
@@ -87,33 +100,32 @@ class UserController {
                 $password = '';
             }
 
-            $userId = UserModel::getUserId($email, $password);
-            $adminFlag = UserModel::getUserRole($userId);
-            $userName = UserModel::getUserName($userId);
-
-            if(!$userId) {
-                $errors [] = 'Неправильные данные для входа';
-                $email = '';
-                $password = '';
-            } else {
-                UserModel::setUserAuthorisation($userId, $adminFlag, $userName);
-                header("Location: /list/");
-
+            if(empty($errors)) {
+                $result = UserModel::getUserInfo($email, $password);
+                if(!$result) {
+                    $errors [] = 'Неправильные данные для входа';
+                    $email = '';
+                    $password = '';
+                }
             }
 
             if (empty($errors)) {
-                $result = '';
+                $userId = intval(array_shift($result));
+                $userName = array_shift($result);
+                $adminFlag = intval(array_shift($result));
+                $this->setUserAuthorisation($userId, $userName, $adminFlag);
+                header("Location: /list/1");
             }
         }
 
         require_once (ROOT . '/views/user/loginView.php');
-
         return true;
     }
-
-    public function actionLogout() {
-        UserModel::unsetUserAuthorisation();
+    //выход пользователя из системы
+    public function actionLogout()
+    {
+        $this->unsetUserAuthorisation();
         header("Location: /");
-
     }
+
 }
