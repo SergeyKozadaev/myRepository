@@ -8,6 +8,7 @@ class UserController
         $_SESSION['userId'] = $userId;
         $_SESSION['userName'] = $userName;
         $_SESSION['adminFlag'] = $adminFlag;
+        $_SESSION['authorised'] = 'Y';
     }
     //очищаем $_SESSION, выход юзера из системы
     public function unsetUserAuthorisation()
@@ -114,7 +115,7 @@ class UserController
                 $userName = array_shift($result);
                 $adminFlag = intval(array_shift($result));
                 $this->setUserAuthorisation($userId, $userName, $adminFlag);
-                header("Location: /list/1");
+                header("Location: /list/");
             }
         }
 
@@ -126,6 +127,28 @@ class UserController
     {
         $this->unsetUserAuthorisation();
         header("Location: /");
+    }
+    //проверка пользователя на пройденную авторизацию
+    public static function checkUserAuthorisation()
+    {
+        if(!isset($_SESSION['userId'])) {
+            return false;
+        }
+        if($_SESSION['userId'] == 0) {
+            return false;
+        }
+        if($_SESSION['authorised'] != 'Y') {
+            return false;
+        }
+        return true;
+    }
+    // проверка прав администратора у пользователя
+    public static function checkAdminRole()
+    {
+        if(!isset($_SESSION['userId']) || $_SESSION["adminFlag"] == false) {
+            return false;
+        }
+        return true;
     }
 
 }

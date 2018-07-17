@@ -1,21 +1,26 @@
 <?php
-
 // массив соответсвий URI вызваемым Controller/Action
 //для некоторых URI используятся регулярные выражения
 return array(
-
     // URI => controller/action
+
     'show/([0-9]+)' => 'task/show/$1', // показывает заявку с определенным номером $1
 
-    'show' => 'site/index',
+    'show' => 'task/list',
 
     'list/([0-9]+)' => 'task/list/$1', // показывает определенную страницу $1 со списком заявок
 
     'list' => 'task/list',
 
+    'new.+' => 'site/page404',
+
     'new' => 'task/new',
 
+    'register.+' => 'site/page404',
+
     'register' => 'user/register',
+
+    'login.+' => 'site/page404',
 
     'login' => 'user/login',
 
@@ -23,7 +28,7 @@ return array(
 
     'downloadXML' => 'task/downloadXML',
 
+   // 'error' => 'site/page404',
+
     '' => 'site/index',
-
-
 );

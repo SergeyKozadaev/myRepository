@@ -5,7 +5,8 @@
     {
         $arrayPaths = array(
             '/components/',
-            '/models/'
+            '/models/',
+            '/controllers/'
         );
 
         foreach ($arrayPaths as $path) {

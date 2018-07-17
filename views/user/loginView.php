@@ -1,11 +1,11 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
-<?php if(isset($_SESSION["userId"])) : ?>
-    <?php header("Location: /list/1") ; ?>
-<?php else : ?>
-    <?php if($result) : ?>
+<?php if(UserController::checkUserAuthorisation()):?>
+    <?php header("Location: /list");?>
+<?php else:?>
+    <?php if($result):?>
         <p class="text-success">Вы были успешно авторизованы</p>
-    <?php else : ?>
+    <?php else:?>
         <div class="container">
             <form method="post" action="">
                 <h2>Вход в систему</h2>
@@ -23,11 +23,11 @@
                 </div>
 
                 <div class="form-group">
-                    <?php if(!empty($errors)) : ?>
-                        <?php foreach ($errors as $error) : ?>
+                    <?php if(!empty($errors)):?>
+                        <?php foreach ($errors as $error):?>
                             <p class="text-warning"> <?php echo $error ?></p>
-                        <?php endforeach ; ?>
-                    <?php endif; ?>
+                        <?php endforeach;?>
+                    <?php endif;?>
                 </div>
 
                 <div class="form-group">
@@ -36,7 +36,7 @@
                 </div>
             </form>
         </div>
-    <?php endif ; ?>
-<?php endif ; ?>
+    <?php endif;?>
+<?php endif;?>
 
 <?php include ROOT . '/views/layouts/footer.php';?>

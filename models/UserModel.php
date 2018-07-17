@@ -69,7 +69,6 @@ class UserModel
         $result = $statement->fetch((PDO::FETCH_NUM));
         $passwordHash = array_shift($result);
         if(password_verify($password, $passwordHash)) {
-
             return $result;
         }
         return false;

@@ -10,7 +10,6 @@ class Router
         $routesPath = ROOT . '/config/routes.php';
         $this->routes = include ($routesPath);
     }
-
     //получить URI с обрезанными символами /
     private function getURI()
     {
@@ -18,7 +17,6 @@ class Router
             return trim ($_SERVER['REQUEST_URI'], '/');
         }
     }
-
     // основной метод: ищет полученный URI в массиве заданных маршрутов $routes,
     // если находит - создает объект класса NameController и выполняет actionName при условии его наличия в контроллере
     public function run()
@@ -37,18 +35,22 @@ class Router
                 $actionParams = $segments;
 
                 $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+
                 if(file_exists($controllerFile)) {
                     include_once($controllerFile);
-                }
+                    $controllerObject = new $controllerName;
 
-                $controllerObject = new $controllerName;
-                if(method_exists($controllerObject, $actionName)) {
-                    $result = call_user_func_array(array($controllerObject, $actionName), $actionParams);
-                    if($result != null) {
-                        break;
+                    if(method_exists($controllerObject, $actionName)) {
+                        $result = call_user_func_array(array($controllerObject, $actionName), $actionParams);
+                        if($result != null) {
+                            return true;
+                        }
                     }
                 }
             }
         }
+        //если нет контроллера и\или экшена - 404 ошибка
+        require_once ROOT . '/views/site/404View.php';
+        return false;
     }
 }

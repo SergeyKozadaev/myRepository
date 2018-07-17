@@ -1,21 +1,14 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
-<?php if(empty($_SESSION["userId"])) : ?>
-    <?php header("Location: /") ; ?>
-<?php endif ; ?>
-
-
-
-
-
+<?php if(!UserController::checkUserAuthorisation()):?>
+    <?php header("Location: /");?>
+<?php endif;?>
 
 <div class="container-fluid">
     <table class="table table-hover">
         <thead>
-        <div class="page-header">
-            <h2>Список заявок:</h2>
-        </div>
         <tr>
+            <h2>Список заявок:</h2>
             <th>Номер заявки</th>
             <th>Пользователь</th>
             <th>Проблема</th>
@@ -26,34 +19,34 @@
         </thead>
 
         <tbody>
-        <?php foreach($taskList as $array) :?>
-            <?php if(!empty($_SESSION['lastTaskId']) and $array['tId'] == $_SESSION['lastTaskId']) : ?>
+        <?php foreach($taskList as $array):?>
+            <?php if(!empty($_SESSION['lastTaskId']) && $array['tId'] == $_SESSION['lastTaskId']):?>
                 <tr class="success">
-            <?php else : ?>
+            <?php else:?>
                 <tr>
-            <?php endif ; ?>
+            <?php endif;?>
 
-            <td class=\"col-lg-1\"> <?php echo $array['tId'];?></td>
-            <td class=\"col-lg-1\"> <?php echo $array['wLogin'];?></td>
-            <td class=\"col-lg-1\"> <?php echo $array['tName'];?></td>
-            <td class=\"col-lg-3\"> <?php echo $array['tDescription'];?></td>
-            <td class=\"col-lg-3\"> <?php echo $array['tContactPhone'];?></td>
+            <td class="col-lg-1"> <?php echo $array['tId'];?></td>
+            <td class="col-lg-1"> <?php echo $array['wLogin'];?></td>
+            <td class="col-lg-1"> <?php echo $array['tName'];?></td>
+            <td class="col-lg-3"> <?php echo $array['tDescription'];?></td>
+            <td class="col-lg-3"> <?php echo $array['tContactPhone'];?></td>
             <td>
                 <p class="links" > <a href="/show/<?php echo $array['tId'];?>">Открыть</a> </p>
             </td>
         </tr>
-        <?php endforeach ; ?>
+        <?php endforeach;?>
         </tbody>
     </table>
 </div>
 
 <div align="center">
     <ul class="pagination">
-        <?php for($i = 1; $i <= $pageTotal; $i++) :?>
+        <?php for($i = 1; $i <= $pageTotal; $i++):?>
             <li <?php if ($i == $pageNumber) echo 'class="active"'?>>
                 <a href="/list/<?php echo $i ?>"><?php echo $i ?></a>
             </li>
-        <?php endfor; ?>
+        <?php endfor;?>
     </ul>
 </div>
 

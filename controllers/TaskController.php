@@ -1,5 +1,4 @@
 <?php
-
 //контроллер работает с пользовательскими задачами(заявками) - создает, выводит список, выводит информацию о конкретной задаче
 class TaskController
 {
@@ -19,10 +18,10 @@ class TaskController
                     require_once (ROOT . '/views/task/listView.php');
                     return true;
                 } else {
-                    header("Location: /list/1");
+                    header("Location: /list/");
                 }
             } else {
-                header("Location: /list/1");
+                header("Location: /list/");
             }
         // если пользователь - выводим постранично список задач этого пользователя
         } elseif (!empty($_SESSION["userId"])) {
@@ -42,11 +41,11 @@ class TaskController
                     return true;
                 // параметр номер страницы за пределами диапазона
                 } else {
-                    header("Location: /list/1");
+                    header("Location: /list/");
                 }
             // параметр номер страницы не типа инт
             } else {
-                header("Location: /list/1");
+                header("Location: /list/");
             }
         // если нет авторизации - перенаправляем на начальную страницу
         } else {
@@ -63,7 +62,7 @@ class TaskController
                 return true;
             // нет задачи с таким id
             } else {
-                header("Location: /list/1");
+                header("Location: /list/");
             }
         }
     }
@@ -107,7 +106,7 @@ class TaskController
             if(!empty($_FILES['photo']['name'])) {
                 $photoPath = TaskModel::uploadImage();
                 if(!$photoPath) {
-                    $errors[] = 'Не удается загрузить фото';
+                    $errors[] = 'Не удается загрузить фото. Размер не должен превышать 2мб, файл должен иметь расширение jpg, gif, png.';
                 }
             }
             // нет ошибок - создаем новую задачу и перенаправляем на страницу со списком задач
@@ -118,7 +117,7 @@ class TaskController
                     $_SESSION['lastTaskId'] = $result;
                 }
                 //по-хорошему надо сделать страницы с ошибками
-                header("Location: /list/1");
+                header("Location: /list/");
             }
         }
 
@@ -140,7 +139,7 @@ class TaskController
             readfile($xmlFile);
             return true;
         } else {
-            header("Location: /list/1");
+            header("Location: /list/");
         }
     }
 }

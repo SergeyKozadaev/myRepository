@@ -1,8 +1,8 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
-<?php if(empty($_SESSION)) : ?>
+<?php if(!UserController::checkUserAuthorisation()):?>
     <?php header("Location: /");?>
-<?php endif ; ?>
+<?php endif;?>
 
     <div class="container">
         <form enctype="multipart/form-data" method="post" action="">
@@ -28,16 +28,16 @@
 
             <div class="form-group">
                 <span class="glyphicon glyphicon-download"></span>
-                <label for="photo">Фото (по желанию)</label>
-                <input type="file" name="photo" multiple accept="image/*">
+                <label for="photo">Фото (по желанию, не больше 2мб)</label>
+                <input type="file" name="photo" accept="image/*">
             </div>
 
             <div class="form-group">
-                <?php if(!empty($errors)) : ?>
-                    <?php foreach ($errors as $error) : ?>
-                        <p class="text-warning"><?php echo $error; ?></p>
-                    <?php endforeach ; ?>
-                <?php endif ; ?>
+                <?php if(!empty($errors)):?>
+                    <?php foreach ($errors as $error):?>
+                        <p class="text-warning"><?php echo $error;?></p>
+                    <?php endforeach;?>
+                <?php endif;?>
             </div>
 
             <div class="form-group">

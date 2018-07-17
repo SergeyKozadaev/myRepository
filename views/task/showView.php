@@ -1,10 +1,10 @@
 <?php include ROOT . '/views/layouts/header.php';?>
 
-<?php if(empty($_SESSION)) : ?>
+<?php if(!UserController::checkUserAuthorisation()):?>
     <?php header("Location: /");?>
-<?php endif ; ?>
+<?php endif;?>
 
-<?php if($_SESSION["adminFlag"] || $taskItem['wId'] == $_SESSION['userId']) : ?>
+<?php if(UserController::checkAdminRole() || $taskItem['wId'] == $_SESSION['userId']):?>
     <div class="container">
         <form method="" action="">
             <h2>Просмотр заявки</h2>
@@ -47,18 +47,8 @@
         </form>
     </div>
 
-<?php else : ?>
-    <?php header("Location: /list/1");?>
-<?php endif ; ?>
-
-
-
-
-
-
-
-
-
-
+<?php else:?>
+    <?php header("Location: /list/");?>
+<?php endif;?>
 
 <?php include ROOT . '/views/layouts/footer.php';?>

@@ -1,6 +1,9 @@
 <?php
 //записей на страниц
 const PER_PAGE = 6;
+const LIMIT_BYTES = 1024 * 1024 * 2;
+const PHOTO_PATH = '/lib/taskPhotos/';
+const XML_PATH = '/lib/XML/';
 
 class TaskModel
 {
@@ -90,7 +93,7 @@ class TaskModel
         $statement->execute();
         $result = $statement->fetchAll((PDO::FETCH_ASSOC));
         $filename = "export_xml_".date("Y-m-d_H-i",time()).".xml";
-        $dom = new DOMDocument;
+        $dom = new DOMDocument('1.0','utf-8');
         $dom->preserveWhiteSpace = FALSE;
         $table = $dom->appendChild($dom->createElement('table'));
         foreach($result as $row) {
@@ -105,7 +108,7 @@ class TaskModel
             }
         }
         $dom->formatOutput = true;
-        $filePath = ROOT . '/lib/XML/' . $filename;
+        $filePath = ROOT . XML_PATH . $filename;
         $dom->save($filePath);
         return $filePath;
     }
@@ -154,15 +157,26 @@ class TaskModel
         }
         return false;
     }
-    //загружаем фото на сервер, при этом переименовываем его - хэш от времени
+    //проверяем тип фото, его размер, загружаем фото на сервер, при этом переименовываем его - хэш от времени
     public static function uploadImage()
     {
-        //по-хорошему надо проверять еще имя файла(длина и досутпные символы)
+        $fi = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = (string)finfo_file($fi, $_FILES['photo']['tmp_name']);
+        var_dump($mime);
+        finfo_close($fi);
+        //проверка на содержание image в mime
+        if (strpos($mime, 'image') === false) {
+            return false;
+        }
+        //проверка на превышение допустимого размера
+        if(filesize($_FILES['photo']['tmp_name']) > LIMIT_BYTES){
+            return false;
+        }
+        // переименовываем и загружаем фото на сервер
         if($_FILES['photo']['error'] == UPLOAD_ERR_OK) {
             $newName = hash("md5", time());
             $_FILES['photo']['name'] = $newName;
-            $uploadDir = '/lib/taskPhotos/';
-            $uploadFile = $uploadDir . basename($_FILES['photo']['name']);
+            $uploadFile = PHOTO_PATH . basename($_FILES['photo']['name']);
             if (move_uploaded_file($_FILES['photo']['tmp_name'],ROOT . $uploadFile)) {
                 return $uploadFile;
             }
