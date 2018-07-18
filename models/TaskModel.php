@@ -1,6 +1,6 @@
 <?php
 //записей на страниц
-const PER_PAGE = 6;
+const PER_PAGE = 5;
 const LIMIT_BYTES = 1024 * 1024 * 2;
 const PHOTO_PATH = '/lib/taskPhotos/';
 const XML_PATH = '/lib/XML/';

@@ -1,5 +1,4 @@
 <?php
-
     //Автоподгрузка классов из папок components и models
     spl_autoload_register(function ($className)
     {

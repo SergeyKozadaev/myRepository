@@ -50,7 +50,7 @@ class UserController
             }
 
             if(!UserModel::checkPasswordLength($password)) {
-                $errors[] = 'Пароль должен быть длиннее 4 символов';
+                $errors[] = 'Пароль должен быть не менее 5 символов';
                 $password = '';
                 $passwordRepeat = '';
             }
@@ -97,7 +97,7 @@ class UserController
             }
 
             if(!UserModel::checkPasswordLength($password)) {
-                $errors[] = 'Пароль должен быть длиннее 4 символов';
+                $errors[] = 'Пароль должен быть не менее 5 символов';
                 $password = '';
             }
 
@@ -150,5 +150,4 @@ class UserController
         }
         return true;
     }
-
 }

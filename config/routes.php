@@ -4,9 +4,13 @@
 return array(
     // URI => controller/action
 
+    'show/([0-9]+)/(\S+)' => 'site/page404', // обработка адрессов типа show/24/23/21 и show/11/qwer
+
     'show/([0-9]+)' => 'task/show/$1', // показывает заявку с определенным номером $1
 
     'show' => 'task/list',
+
+    'list/([0-9]+)/(\S+)' => 'site/page404', // обработка адрессов типа list/24/23/21 и list/11/qwer
 
     'list/([0-9]+)' => 'task/list/$1', // показывает определенную страницу $1 со списком заявок
 
@@ -27,8 +31,6 @@ return array(
     'logout' => 'user/logout',
 
     'downloadXML' => 'task/downloadXML',
-
-   // 'error' => 'site/page404',
 
     '' => 'site/index',
 );

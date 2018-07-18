@@ -1,5 +1,4 @@
 <?php
-
 //построитель маршрутов по URI, сопостовляет Controller->action введенному URI
 class Router
 {

@@ -1,4 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php';?>
+<?php include_once ROOT . '/views/layouts/header.php';?>
 
 <?php if(UserController::checkUserAuthorisation()):?>
     <?php header("Location: /list");?>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-eye-close"></span>
                     <label for="password">Пароль:</label>
-                    <input type="password" class="form-control" name="password" placeholder="Введите пароль, не менее 4 символов" value="<?php echo $password;?>">
+                    <input type="password" class="form-control" name="password" placeholder="Введите пароль, не менее 5 символов" value="<?php echo $password;?>">
                 </div>
 
                 <div class="form-group">
@@ -55,4 +55,4 @@
     <?php endif;?>
 <?php endif;?>
 
-<?php include ROOT . '/views/layouts/footer.php';?>
+<?php include_once ROOT . '/views/layouts/footer.php';?>

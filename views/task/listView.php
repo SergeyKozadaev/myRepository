@@ -1,4 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php';?>
+<?php include_once ROOT . '/views/layouts/header.php';?>
 
 <?php if(!UserController::checkUserAuthorisation()):?>
     <?php header("Location: /");?>
@@ -50,4 +50,4 @@
     </ul>
 </div>
 
-<?php include ROOT . '/views/layouts/footer.php';?>
+<?php include_once ROOT . '/views/layouts/footer.php';?>

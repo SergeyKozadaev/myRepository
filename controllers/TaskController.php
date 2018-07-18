@@ -120,7 +120,6 @@ class TaskController
                 header("Location: /list/");
             }
         }
-
         require_once (ROOT . '/views/task/newView.php');
         return true;
     }
