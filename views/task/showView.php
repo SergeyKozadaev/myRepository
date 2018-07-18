@@ -1,10 +1,5 @@
 <?php include_once ROOT . '/views/layouts/header.php';?>
 
-<?php if(!UserController::checkUserAuthorisation()):?>
-    <?php header("Location: /");?>
-<?php endif;?>
-
-<?php if(UserController::checkAdminRole() || $taskItem['wId'] == $_SESSION['userId']):?>
     <div class="container">
         <form method="" action="">
             <h2>Просмотр заявки</h2>
@@ -46,9 +41,5 @@
             </div>
         </form>
     </div>
-
-<?php else:?>
-    <?php header("Location: /list/");?>
-<?php endif;?>
 
 <?php include_once ROOT . '/views/layouts/footer.php';?>

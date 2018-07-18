@@ -1,14 +1,10 @@
 <?php include_once ROOT . '/views/layouts/header.php';?>
 
-<?php if(!UserController::checkUserAuthorisation()):?>
-    <?php header("Location: /");?>
-<?php endif;?>
-
 <div class="container-fluid">
+    <h2>Список заявок:</h2>
     <table class="table table-hover">
         <thead>
         <tr>
-            <h2>Список заявок:</h2>
             <th>Номер заявки</th>
             <th>Пользователь</th>
             <th>Проблема</th>
@@ -19,8 +15,8 @@
         </thead>
 
         <tbody>
-        <?php foreach($taskList as $array):?>
-            <?php if(!empty($_SESSION['lastTaskId']) && $array['tId'] == $_SESSION['lastTaskId']):?>
+        <?php foreach ($taskList as $array):?>
+            <?php if (!empty($_SESSION['lastTaskId']) && $array['tId'] == $_SESSION['lastTaskId']):?>
                 <tr class="success">
             <?php else:?>
                 <tr>
@@ -42,7 +38,7 @@
 
 <div align="center">
     <ul class="pagination">
-        <?php for($i = 1; $i <= $pageTotal; $i++):?>
+        <?php for ($i = 1; $i <= $pageTotal; $i++):?>
             <li <?php if ($i == $pageNumber) echo 'class="active"'?>>
                 <a href="/list/<?php echo $i ?>"><?php echo $i ?></a>
             </li>

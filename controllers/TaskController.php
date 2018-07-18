@@ -5,36 +5,46 @@ class TaskController
     //получение информации о списке задач, для последующего отображения этой информации
     public function actionList($pageNumber = 1)
     {
+        //проверка на авторизацию пользователя
+        if (!UserModel::checkUserAuthorisation()) {
+            header("Location: /");
+            exit;
+        }
         // если администратор - выводим постранично список задач всех пользвоателей
-        if(!empty($_SESSION["adminFlag"])) {
+        if (!empty($_SESSION["adminFlag"])) {
             $taskTotal = TaskModel::getAdminTotalTasksNumder();
-
+            //Если у пользователя нет в БД заявок, то его перенаправит на страницу с сообщением
+            if (!$taskTotal) {
+                header("Location: /noTasks/");
+                exit;
+            }
             $pageTotal = ceil($taskTotal/PER_PAGE);
 
-            if(intval($pageNumber)) {
-                if($pageNumber <= $pageTotal) {
+            if (intval($pageNumber)) {
+                if ($pageNumber <= $pageTotal) {
                     $taskList = array();
                     $taskList = TaskModel::getAdminTasksList($pageNumber);
                     require_once (ROOT . '/views/task/listView.php');
                     return true;
                 } else {
                     header("Location: /list/");
+                    exit;
                 }
             } else {
                 header("Location: /list/");
+                exit;
             }
         // если пользователь - выводим постранично список задач этого пользователя
         } elseif (!empty($_SESSION["userId"])) {
             $taskTotal = TaskModel::getUserTotalTasksNumder($_SESSION["userId"]);
             //Если у пользователя нет в БД заявок, то его перенаправит на страницу с сообщением
-            if(!$taskTotal) {
-                require_once(ROOT . '/views/site/noTasksView.php');
+            if (!$taskTotal) {
+                header("Location: /noTasks/");
                 exit;
             }
-
             $pageTotal = ceil($taskTotal/PER_PAGE);
-            if(intval($pageNumber)) {
-                if($pageNumber <= $pageTotal) {
+            if (intval($pageNumber)) {
+                if ($pageNumber <= $pageTotal) {
                     $taskList = array();
                     $taskList = TaskModel::getUserTasksList($pageNumber, $_SESSION["userId"]);
                     require_once (ROOT . '/views/task/listView.php');
@@ -42,27 +52,37 @@ class TaskController
                 // параметр номер страницы за пределами диапазона
                 } else {
                     header("Location: /list/");
+                    exit;
                 }
             // параметр номер страницы не типа инт
             } else {
                 header("Location: /list/");
+                exit;
             }
         // если нет авторизации - перенаправляем на начальную страницу
         } else {
             header("Location: /");
+            exit;
         }
     }
     //получение информации о конкретной задаче для последующего отображения этой информации
     public function actionShow($taskId)
     {
-        if($taskId) {
+        //проверка на авторизацию пользователя
+        if (!UserModel::checkUserAuthorisation()) {
+            header("Location: /");
+            exit;
+        }
+
+        if ($taskId) {
             $taskItem = TaskModel::getTaskById($taskId);
-            if(!empty($taskItem)) {
+            if (!empty($taskItem) && (UserModel::checkAdminRole() || $taskItem['wId'] == $_SESSION['userId'])) {
                 require_once (ROOT . '/views/task/showView.php');
                 return true;
             // нет задачи с таким id
             } else {
                 header("Location: /list/");
+                exit;
             }
         }
     }
@@ -74,13 +94,19 @@ class TaskController
         $description = '';
         $result = false;
 
-        if(isset($_POST['reset'])) {
+        //проверка на авторизацию пользователя
+        if (!UserModel::checkUserAuthorisation()) {
+            header("Location: /");
+            exit;
+        }
+
+        if (isset($_POST['reset'])) {
             $name = '';
             $contactPhone = '';
             $description = '';
         }
 
-        if(isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
             $name = Input::testInput($_POST['name']);
             $contactPhone = Input::testInput($_POST['contactPhone']);
             $description = Input::testInput($_POST['description']);
@@ -93,31 +119,31 @@ class TaskController
                 $name = '';
             }
 
-            if(!TaskModel::checkContactPhone($contactPhone)) {
+            if (!TaskModel::checkContactPhone($contactPhone)) {
                 $errors[] = 'Введенные данные не соответсвуют телефонному номеру';
                 $contactPhone = '';
             }
 
-            if(!TaskModel::checkDescription($description)) {
+            if (!TaskModel::checkDescription($description)) {
                 $errors[] = 'Описание должно содержать больше 10 символов';
                 $description = '';
             }
 
-            if(!empty($_FILES['photo']['name'])) {
+            if (!empty($_FILES['photo']['name'])) {
                 $photoPath = TaskModel::uploadImage();
                 if(!$photoPath) {
                     $errors[] = 'Не удается загрузить фото. Размер не должен превышать 2мб, файл должен иметь расширение jpg, gif, png.';
                 }
             }
             // нет ошибок - создаем новую задачу и перенаправляем на страницу со списком задач
-            if(empty($errors)) {
+            if (empty($errors)) {
                 $userId = $_SESSION ['userId'];
                 $result = TaskModel::createNewTask($userId, $name, $contactPhone, $description, $photoPath);
-                if($result) {
+                if ($result) {
                     $_SESSION['lastTaskId'] = $result;
                 }
-                //по-хорошему надо сделать страницы с ошибками
                 header("Location: /list/");
+                exit;
             }
         }
         require_once (ROOT . '/views/task/newView.php');
@@ -139,6 +165,7 @@ class TaskController
             return true;
         } else {
             header("Location: /list/");
+            exit;
         }
     }
 }

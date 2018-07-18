@@ -1,9 +1,5 @@
 <?php include_once ROOT . '/views/layouts/header.php';?>
 
-<?php if(!UserController::checkUserAuthorisation()):?>
-    <?php header("Location: /");?>
-<?php endif;?>
-
     <div class="container">
         <form enctype="multipart/form-data" method="post" action="">
             <h2>Создание новой заявки</h2>
@@ -33,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                <?php if(!empty($errors)):?>
+                <?php if (!empty($errors)):?>
                     <?php foreach ($errors as $error):?>
                         <p class="text-warning"><?php echo $error;?></p>
                     <?php endforeach;?>

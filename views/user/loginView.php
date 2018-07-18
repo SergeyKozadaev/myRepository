@@ -1,9 +1,6 @@
 <?php include_once ROOT . '/views/layouts/header.php';?>
 
-<?php if(UserController::checkUserAuthorisation()):?>
-    <?php header("Location: /list");?>
-<?php else:?>
-    <?php if($result):?>
+    <?php if ($result):?>
         <p class="text-success">Вы были успешно авторизованы</p>
     <?php else:?>
         <div class="container">
@@ -23,7 +20,7 @@
                 </div>
 
                 <div class="form-group">
-                    <?php if(!empty($errors)):?>
+                    <?php if (!empty($errors)):?>
                         <?php foreach ($errors as $error):?>
                             <p class="text-warning"> <?php echo $error ?></p>
                         <?php endforeach;?>
@@ -37,6 +34,5 @@
             </form>
         </div>
     <?php endif;?>
-<?php endif;?>
 
 <?php include_once ROOT . '/views/layouts/footer.php';?>

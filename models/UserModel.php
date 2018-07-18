@@ -5,7 +5,7 @@ class UserModel
     //Проверка выполнения требований для введенной строки email
     public static function checkEmail($email)
     {
-        if(filter_var($email,FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($email,FILTER_VALIDATE_EMAIL)) {
             return true;
         }
         return false;
@@ -68,9 +68,42 @@ class UserModel
         $statement->execute();
         $result = $statement->fetch((PDO::FETCH_NUM));
         $passwordHash = array_shift($result);
-        if(password_verify($password, $passwordHash)) {
+        if (password_verify($password, $passwordHash)) {
             return $result;
         }
         return false;
+    }
+    //авторизуем пользователя через $_SESSION
+    public static function setUserAuthorisation($userId, $userName, $adminFlag)
+    {
+        $_SESSION['userId'] = $userId;
+        $_SESSION['userName'] = $userName;
+        $_SESSION['adminFlag'] = $adminFlag;
+        $_SESSION['authorised'] = 'Y';
+    }
+    //очищаем $_SESSION, выход юзера из системы
+    public static function unsetUserAuthorisation()
+    {
+        session_unset();
+        session_destroy();
+        session_write_close();
+        setcookie(session_name(),'',0,'/');
+        session_regenerate_id(true);
+    }
+    //проверка пользователя на пройденную авторизацию
+    public static function checkUserAuthorisation()
+    {
+        if (!isset($_SESSION['userId']) || $_SESSION['userId'] == 0 || $_SESSION['authorised'] != 'Y') {
+            return false;
+        }
+        return true;
+    }
+    // проверка прав администратора у пользователя
+    public static function checkAdminRole()
+    {
+        if (!isset($_SESSION['userId']) || $_SESSION["adminFlag"] == false) {
+            return false;
+        }
+        return true;
     }
 }

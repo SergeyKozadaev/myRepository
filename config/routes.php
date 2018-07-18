@@ -4,33 +4,25 @@
 return array(
     // URI => controller/action
 
-    'show/([0-9]+)/(\S+)' => 'site/page404', // обработка адрессов типа show/24/23/21 и show/11/qwer
+    '^show/(\d+)$' => 'task/show/$1', // показывает заявку с определенным номером $1
 
-    'show/([0-9]+)' => 'task/show/$1', // показывает заявку с определенным номером $1
+    '^list/(\d+)$' => 'task/list/$1', // показывает определенную страницу $1 со списком заявок
 
-    'show' => 'task/list',
+    '^list$' => 'task/list',
 
-    'list/([0-9]+)/(\S+)' => 'site/page404', // обработка адрессов типа list/24/23/21 и list/11/qwer
+    '^new$' => 'task/new',
 
-    'list/([0-9]+)' => 'task/list/$1', // показывает определенную страницу $1 со списком заявок
+    '^register$' => 'user/register',
 
-    'list' => 'task/list',
+    '^login$' => 'user/login',
 
-    'new.+' => 'site/page404',
+    '^logout$' => 'user/logout',
 
-    'new' => 'task/new',
+    '^downloadXML$' => 'task/downloadXML',
 
-    'register.+' => 'site/page404',
+    '^noTasks$' => 'site/noTasks',
 
-    'register' => 'user/register',
-
-    'login.+' => 'site/page404',
-
-    'login' => 'user/login',
-
-    'logout' => 'user/logout',
-
-    'downloadXML' => 'task/downloadXML',
+    '^404$' => 'site/page404',
 
     '' => 'site/index',
 );

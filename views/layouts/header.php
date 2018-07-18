@@ -20,7 +20,7 @@
                     <a class="navbar-brand">HelpDesk</a>
                 </div>
 
-                    <?php if(!UserController::checkUserAuthorisation()):?>
+                    <?php if (!UserModel::checkUserAuthorisation()):?>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
                             <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Зарегистрироваться</a></li>
@@ -29,7 +29,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/list">Список заявок</a></li>
                             <li><a href="/new">Новая заявка</a></li>
-                            <?php if(UserController::checkAdminRole()):?>
+                            <?php if (UserModel::checkAdminRole()):?>
                                 <li><a href="/downloadXML">Скачать БД в XML</a></li>
                             <?php endif;?>
                         </ul>

@@ -21,8 +21,9 @@ class Router
     public function run()
     {
         $uri = $this->getURI();
+
         foreach ($this->routes as $uriPattern => $path) {
-            if(preg_match("~$uriPattern~", $uri)) {
+            if (preg_match("~$uriPattern~", $uri)) {
 
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
                 $segments = explode('/', $internalRoute);
@@ -35,21 +36,21 @@ class Router
 
                 $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
 
-                if(file_exists($controllerFile)) {
+                if (file_exists($controllerFile)) {
                     include_once($controllerFile);
                     $controllerObject = new $controllerName;
 
-                    if(method_exists($controllerObject, $actionName)) {
+                    if (method_exists($controllerObject, $actionName)) {
                         $result = call_user_func_array(array($controllerObject, $actionName), $actionParams);
-                        if($result != null) {
-                            return true;
+                        if ($result != null) {
+                            exit;
                         }
                     }
                 }
             }
         }
-        //если нет контроллера и\или экшена - 404 ошибка
-        require_once ROOT . '/views/site/404View.php';
+        // нет соответсвия - значит 404
+        header("Location: /404" );
         return false;
     }
 }

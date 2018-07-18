@@ -96,10 +96,10 @@ class TaskModel
         $dom = new DOMDocument('1.0','utf-8');
         $dom->preserveWhiteSpace = FALSE;
         $table = $dom->appendChild($dom->createElement('table'));
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $data = $dom->createElement('row');
             $table->appendChild($data);
-            foreach($row as $name => $value) {
+            foreach ($row as $name => $value) {
                 $col = $dom->createElement('column', $value);
                 $data->appendChild($col);
                 $colattribute = $dom->createAttribute('name');
@@ -115,7 +115,7 @@ class TaskModel
     //Проверка выполнения требований для введенной строки name
     public static function checkName($name)
     {
-        if(strlen($name) > 4) {
+        if (strlen($name) > 4) {
             return true;
         }
         return false;
@@ -125,7 +125,7 @@ class TaskModel
     {
         //паттерн регулярного выражения для номера телефона
         $pattern = '^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$';
-        if(preg_match("~$pattern~", $contactPhone)) {
+        if (preg_match("~$pattern~", $contactPhone)) {
             return true;
         }
         return false;
@@ -133,7 +133,7 @@ class TaskModel
     //Проверка выполнения требований для введенной строки Description
     public static function checkDescription($description)
     {
-        if(strlen($description) > 10) {
+        if (strlen($description) > 10) {
             return true;
         }
         return false;
@@ -162,18 +162,17 @@ class TaskModel
     {
         $fi = finfo_open(FILEINFO_MIME_TYPE);
         $mime = (string)finfo_file($fi, $_FILES['photo']['tmp_name']);
-        var_dump($mime);
         finfo_close($fi);
         //проверка на содержание image в mime
         if (strpos($mime, 'image') === false) {
             return false;
         }
         //проверка на превышение допустимого размера
-        if(filesize($_FILES['photo']['tmp_name']) > LIMIT_BYTES){
+        if (filesize($_FILES['photo']['tmp_name']) > LIMIT_BYTES){
             return false;
         }
         // переименовываем и загружаем фото на сервер
-        if($_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+        if ($_FILES['photo']['error'] == UPLOAD_ERR_OK) {
             $newName = hash("md5", time());
             $_FILES['photo']['name'] = $newName;
             $uploadFile = PHOTO_PATH . basename($_FILES['photo']['name']);

@@ -2,19 +2,6 @@
 //контроллер отвечает за регистрацию, авторизацию и выход пользователя из системы
 class UserController
 {
-    //авторизуем пользователя через $_SESSION
-    public function setUserAuthorisation($userId, $userName, $adminFlag)
-    {
-        $_SESSION['userId'] = $userId;
-        $_SESSION['userName'] = $userName;
-        $_SESSION['adminFlag'] = $adminFlag;
-        $_SESSION['authorised'] = 'Y';
-    }
-    //очищаем $_SESSION, выход юзера из системы
-    public function unsetUserAuthorisation()
-    {
-        session_unset();
-    }
     //регистрация пользователя
     public function actionRegister()
     {
@@ -24,14 +11,20 @@ class UserController
         $passwordRepeat = '';
         $result = false;
 
-        if(isset($_POST['reset'])){
+        //проверка на авторизацию пользователя
+        if (UserModel::checkUserAuthorisation()) {
+            header("Location: /list");
+            exit;
+        }
+
+        if (isset($_POST['reset'])){
             $login = '';
             $email = '';
             $password = '';
             $passwordRepeat = '';
         }
 
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])){
             $login = Input::testInput($_POST['login']);
             $email = Input::testInput($_POST['email']);
             $password = Input::testInput($_POST['password']);
@@ -39,29 +32,29 @@ class UserController
             //массив ошибок
             $errors = false;
 
-            if(!UserModel::checkLoginLength($login)) {
+            if (!UserModel::checkLoginLength($login)) {
                 $errors [] = 'Логин должен быть длинее 2 символов';
                 $login = '';
             }
 
-            if(!UserModel::checkEmail($email)) {
+            if (!UserModel::checkEmail($email)) {
                 $errors[] = 'Email должен быть формата: mailbox@provider.com';
                 $email = '';
             }
 
-            if(!UserModel::checkPasswordLength($password)) {
+            if (!UserModel::checkPasswordLength($password)) {
                 $errors[] = 'Пароль должен быть не менее 5 символов';
                 $password = '';
                 $passwordRepeat = '';
             }
 
-            if(!UserModel::checkPasswordRepeat($password, $passwordRepeat)) {
+            if (!UserModel::checkPasswordRepeat($password, $passwordRepeat)) {
                 $errors[] = 'Введенные пароли не совпадают';
                 $password = '';
                 $passwordRepeat = '';
             }
 
-            if(UserModel::checkEmailExist($email)) {
+            if (UserModel::checkEmailExist($email)) {
                 $errors[] = 'Пользователь с таким email уже существует';
             }
 
@@ -80,30 +73,36 @@ class UserController
         $password = '';
         $result = false;
 
-        if(isset($_POST['reset'])) {
+        //проверка на авторизацию пользователя
+        if (UserModel::checkUserAuthorisation()) {
+            header("Location: /list");
+            exit;
+        }
+
+        if (isset($_POST['reset'])) {
             $email = '';
             $password = '';
         }
 
-        if(isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
             $email = Input::testInput($_POST['email']);
             $password = Input::testInput($_POST['password']);
             //массив с ошибками ввода
             $errors = false;
 
-            if(!UserModel::checkEmail($email)) {
+            if (!UserModel::checkEmail($email)) {
                 $errors[] = 'Email должен быть формата: mailbox@provider.com';
                 $email = '';
             }
 
-            if(!UserModel::checkPasswordLength($password)) {
+            if (!UserModel::checkPasswordLength($password)) {
                 $errors[] = 'Пароль должен быть не менее 5 символов';
                 $password = '';
             }
 
-            if(empty($errors)) {
+            if (empty($errors)) {
                 $result = UserModel::getUserInfo($email, $password);
-                if(!$result) {
+                if (!$result) {
                     $errors [] = 'Неправильные данные для входа';
                     $email = '';
                     $password = '';
@@ -114,8 +113,9 @@ class UserController
                 $userId = intval(array_shift($result));
                 $userName = array_shift($result);
                 $adminFlag = intval(array_shift($result));
-                $this->setUserAuthorisation($userId, $userName, $adminFlag);
+                UserModel::setUserAuthorisation($userId, $userName, $adminFlag);
                 header("Location: /list/");
+                exit;
             }
         }
 
@@ -125,29 +125,9 @@ class UserController
     //выход пользователя из системы
     public function actionLogout()
     {
-        $this->unsetUserAuthorisation();
+        UserModel::unsetUserAuthorisation();
         header("Location: /");
-    }
-    //проверка пользователя на пройденную авторизацию
-    public static function checkUserAuthorisation()
-    {
-        if(!isset($_SESSION['userId'])) {
-            return false;
-        }
-        if($_SESSION['userId'] == 0) {
-            return false;
-        }
-        if($_SESSION['authorised'] != 'Y') {
-            return false;
-        }
         return true;
     }
-    // проверка прав администратора у пользователя
-    public static function checkAdminRole()
-    {
-        if(!isset($_SESSION['userId']) || $_SESSION["adminFlag"] == false) {
-            return false;
-        }
-        return true;
-    }
+
 }
