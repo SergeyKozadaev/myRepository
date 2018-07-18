@@ -7,6 +7,6 @@
     define('ROOT', dirname(__FILE__));
     require_once (ROOT . '/components/Autoload.php');
     //запускаем сессию и роутер
-    session_start(['use_only_cookies'=>0]);
+    session_start();
     $router = new Router();
     $router->run();

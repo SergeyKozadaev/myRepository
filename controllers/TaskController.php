@@ -20,16 +20,11 @@ class TaskController
             }
             $pageTotal = ceil($taskTotal/PER_PAGE);
 
-            if (intval($pageNumber)) {
-                if ($pageNumber <= $pageTotal) {
+            if (intval($pageNumber) && $pageNumber <= $pageTotal) {
                     $taskList = array();
                     $taskList = TaskModel::getAdminTasksList($pageNumber);
                     require_once (ROOT . '/views/task/listView.php');
                     return true;
-                } else {
-                    header("Location: /list/");
-                    exit;
-                }
             } else {
                 header("Location: /list/");
                 exit;
@@ -43,18 +38,12 @@ class TaskController
                 exit;
             }
             $pageTotal = ceil($taskTotal/PER_PAGE);
-            if (intval($pageNumber)) {
-                if ($pageNumber <= $pageTotal) {
+            if (intval($pageNumber) && $pageNumber <= $pageTotal) {
+
                     $taskList = array();
                     $taskList = TaskModel::getUserTasksList($pageNumber, $_SESSION["userId"]);
                     require_once (ROOT . '/views/task/listView.php');
                     return true;
-                // параметр номер страницы за пределами диапазона
-                } else {
-                    header("Location: /list/");
-                    exit;
-                }
-            // параметр номер страницы не типа инт
             } else {
                 header("Location: /list/");
                 exit;
